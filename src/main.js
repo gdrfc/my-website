@@ -3,10 +3,15 @@ import App from './App.vue'
 import router from './router'
 import './style.css'
 
-// 先创建 app 实例
-const app = createApp(App).use(router)
+// 给 vite-ssg 用的导出函数
+export function createApp() {
+  const app = createApp(App)
+  app.use(router)
+  return { app, router }
+}
 
-// 只在浏览器环境执行 mount
+// 浏览器端才执行挂载
 if (typeof document !== 'undefined') {
+  const { app } = createApp()
   app.mount('#app')
 }
