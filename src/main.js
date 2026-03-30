@@ -1,9 +1,6 @@
-// src/main.js 【全部用这段覆盖】
+// src/main.js  最终版！！！
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
 import './style.css'
 
-const app = createApp(App)
-app.use(router)
-app.mount('#app')
+createApp(App).mount('#app')
