@@ -4,19 +4,22 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-  "dev": "vite",
-  "build": "vite-ssg build",
-  "preview": "vite preview"
-},
+    "dev": "vite",
+    "build": "vite-ssg build",
+    "preview": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
+  },
   "dependencies": {
     "emailjs-com": "^3.2.0",
     "vue": "^3.5.30",
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.30.2",
     "@vitejs/plugin-vue": "^6.0.5",
     "unplugin-vue-components": "^32.0.0",
     "vite": "^8.0.1",
-    "vite-ssg": "^28.3.0"
+    "vite-ssg": "^28.3.0",
+    "wrangler": "^4.78.0"
   }
 }
