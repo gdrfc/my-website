@@ -1,10 +1,8 @@
 import { createMemoryHistory, createRouter } from 'vue-router'
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
+import App from '../App.vue'
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/about', component: About }
+  { path: '/', component: App }
 ]
 
 const router = createRouter({
@@ -12,5 +10,4 @@ const router = createRouter({
   routes
 })
 
-// 必须加这一行导出！！！
 export default router
