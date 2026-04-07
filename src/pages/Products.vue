@@ -1,33 +1,41 @@
 <template>
-  <div class="products">
-    <h1>产品能力</h1>
-    <div class="list">
-      <div class="item">
-        <h3>标准版太阳能杀虫灯</h3>
-        <p>适合水稻、玉米、甘蔗</p>
-      </div>
-      <div class="item">
-        <h3>果园专用款</h3>
-        <p>适合芒果、榴莲、橡胶</p>
+  <main class="page">
+    <div class="container">
+      <h1>Our Products</h1>
+      <div class="content">
+        <p>We specialize in manufacturing high-quality solar pest killer lamps for agricultural use. Our products are powered by clean solar energy, requiring no electricity or batteries, making them ideal for outdoor farms, fields, and orchards.</p>
+        <p>Our product range includes various models of solar insect killers, suitable for rice fields, vegetable gardens, fruit plantations, and other agricultural scenarios. All products feature high-efficiency solar panels, large-capacity batteries, and durable waterproof design.</p>
+        <p>With stable performance, long service life, and effective pest control results, our solar products are widely trusted by farmers and distributors throughout Southeast Asia, including Vietnam, Thailand, Malaysia, and Indonesia.</p>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
+<script setup>
+</script>
+
 <style scoped>
-.products {
-  max-width: 1000px;
-  margin: 50px auto;
-  padding: 20px;
+.page {
+  max-width: 1200px;
+  margin: 5rem auto;
+  padding: 0 1.25rem;
 }
-.list {
-  display: flex;
-  gap: 20px;
+.container h1 {
+  color: #8B4513;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  margin-bottom: 2.5rem;
+  text-align: center;
+  font-weight: 600;
 }
-.item {
-  flex: 1;
-  background: #fffbeb;
-  padding: 20px;
-  border-radius: 10px;
+.content {
+  color: #3d3330;
+  line-height: 1.9;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  max-width: 850px;
+  margin: 0 auto;
+  text-align: justify;
+}
+.content p {
+  margin-bottom: 1.25rem;
 }
 </style>
