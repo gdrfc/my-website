@@ -1,138 +1,153 @@
 <template>
-  <main class="page">
+  <div class="page">
     <div class="container">
       <h1>Contact Us</h1>
       <div class="content">
-        <p>We welcome inquiries from distributors, importers, and farmers worldwide. If you are interested in our solar pest killer lamps or need customized agricultural pest control solutions, please feel free to contact us.</p>
-        <p>We provide professional service, competitive factory prices, fast delivery, and reliable after-sales support. Our team will reply to your message within 24 hours and offer the best solution for your business.</p>
+        <p>We welcome distributors, farmers, and importers from around the world. If you need our solar insect killer lamps or customized pest control solutions, please send us a message.</p>
+        <p>We offer competitive factory prices, reliable quality, fast delivery, and professional after-sales support. Our team will reply within 24 hours to provide the best solution for your business.</p>
       </div>
 
-      <!-- 询盘表单（直接可用） -->
-      <form class="contact-form" @submit.prevent="sendEmail">
+      <!-- 修复后的表单 -->
+      <form class="contact-form" @submit.prevent="sendForm">
         <div class="form-group">
-          <label>Your Name</label>
-          <input v-model="form.name" type="text" required placeholder="Enter your name" />
+          <label>Your Name *</label>
+          <input type="text" v-model="formData.name" required placeholder="Enter your full name" />
         </div>
 
         <div class="form-group">
-          <label>Email</label>
-          <input v-model="form.email" type="email" required placeholder="Enter your email" />
+          <label>Your Email *</label>
+          <input type="email" v-model="formData.email" required placeholder="Enter your email address" />
         </div>
 
         <div class="form-group">
-          <label>Phone (optional)</label>
-          <input v-model="form.phone" type="text" placeholder="Enter your phone" />
+          <label>Company Name</label>
+          <input type="text" v-model="formData.company" placeholder="Enter your company name (optional)" />
         </div>
 
         <div class="form-group">
-          <label>Interested Product</label>
-          <input v-model="form.product" type="text" required placeholder="e.g. Solar Pest Killer Lamp" />
+          <label>Country *</label>
+          <select v-model="formData.country" required>
+            <option value="">Select your country</option>
+            <option value="Vietnam">Vietnam</option>
+            <option value="Thailand">Thailand</option>
+            <option value="Indonesia">Indonesia</option>
+            <option value="Philippines">Philippines</option>
+            <option value="Malaysia">Malaysia</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
 
         <div class="form-group">
-          <label>Your Message</label>
-          <textarea v-model="form.message" rows="5" required placeholder="Enter your message"></textarea>
+          <label>Your Message *</label>
+          <textarea v-model="formData.message" required placeholder="Tell us your needs: product quantity, model, or special requirements..."></textarea>
         </div>
 
         <button type="submit" class="submit-btn">Send Inquiry</button>
       </form>
     </div>
-  </main>
+  </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import emailjs from '@emailjs/browser'
+import { ref } from 'vue';
+import emailjs from '@emailjs/browser';
 
 // 表单数据
-const form = ref({
+const formData = ref({
   name: '',
   email: '',
-  phone: '',
-  product: '',
+  company: '',
+  country: '',
   message: ''
-})
+});
 
-// 发送邮件（你只需要改这 3 个 ID）
-const sendEmail = async () => {
+// 发送函数（已匹配字段）
+const sendForm = async () => {
   try {
-    await emailjs.send(
-      "service_mrh7oc5", // 你的 Service ID（不用改）
-      "template_d613m6j", // 你的 Template ID（改成你自己的）
-      form.value,
-      "-JtWwfZK-PeYPOupl" // 你的 Public Key（改成你自己的）
-    )
+    const response = await emailjs.send(
+      'service_mrh7oc5', // 替换为你的Service ID（就是之前的service_xxxx）
+      'template_d613m6j', // 替换为你的模板ID（Email后台复制）
+      {
+        name: formData.value.name,
+        email: formData.value.email,
+        company: formData.value.company,
+        country: formData.value.country,
+        message: formData.value.message
+      },
+      '-JtWwfZK-PeYPOupl' // 替换为你的公钥（就是你截图里的-xxxx）
+    );
 
-    alert('Message sent successfully! We will reply you soon.')
-    form.value = { name: '', email: '', phone: '', product: '', message: '' }
-  } catch (err) {
-    alert('Failed to send message, please try again.')
-    console.error(err)
+    alert('Your inquiry has been sent successfully! We will reply to you within 24 hours.');
+    // 清空表单
+    formData.value = {
+      name: '',
+      email: '',
+      company: '',
+      country: '',
+      message: ''
+    };
+  } catch (error) {
+    console.error('Send failed:', error);
+    alert('Failed to send, please try again or contact us directly via email.');
   }
-}
+};
 </script>
 
 <style scoped>
 .page {
   max-width: 1200px;
-  margin: 5rem auto;
-  padding: 0 1.25rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
-.container h1 {
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+h1 {
   color: #8B4513;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  margin-bottom: 2.5rem;
   text-align: center;
-  font-weight: 600;
+  margin-bottom: 1.5rem;
 }
 .content {
-  color: #3d3330;
-  line-height: 1.9;
-  font-size: clamp(1rem, 2vw, 1.15rem);
-  max-width: 850px;
-  margin: 0 auto 3rem;
-  text-align: justify;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  color: #333;
 }
-.content p {
-  margin-bottom: 1.25rem;
-}
-
-/* 表单样式 */
 .contact-form {
-  max-width: 700px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.3rem;
 }
-.form-group label {
+label {
   font-weight: 500;
-  color: #222;
+  color: #333;
 }
-.form-group input,
-.form-group textarea {
-  padding: 0.9rem 1rem;
+input, select, textarea {
+  padding: 0.8rem;
   border: 1px solid #ddd;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 1rem;
 }
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
 .submit-btn {
-  padding: 1rem;
-  background: #2d5d1f;
+  background-color: #DAA520;
   color: white;
   border: none;
-  border-radius: 6px;
+  padding: 1rem;
+  border-radius: 4px;
   font-size: 1.1rem;
-  font-weight: 500;
   cursor: pointer;
-  transition: 0.2s;
+  transition: background 0.2s;
 }
 .submit-btn:hover {
-  background: #234a17;
+  background-color: #B8860B;
 }
 </style>
