@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
+
 // 导入5个页面组件
 import Home from '../pages/Index.vue'
 import About from '../pages/About.vue'
@@ -55,7 +56,8 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(), // 浏览器端必须用这个！
+  // ✅ 关键修复：静态网站必须用 hash 模式，部署后不白屏、不404
+  history: createWebHashHistory(),
   routes
 })
 
